@@ -1,0 +1,25 @@
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+
+import { DialogProductComponent } from './dialog-product.component';
+
+describe('DialogProductComponent', () => {
+  let component: DialogProductComponent;
+  let fixture: ComponentFixture<DialogProductComponent>;
+
+  beforeEach(waitForAsync(() => {
+    TestBed.configureTestingModule({
+      declarations: [ DialogProductComponent ]
+    })
+    .compileComponents();
+  }));
+
+  beforeEach(() => {
+    fixture = TestBed.createComponent(DialogProductComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});

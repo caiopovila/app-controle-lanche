@@ -1,0 +1,52 @@
+<h1 mat-dialog-title>Atualizar {{data.produto}}</h1>
+<mat-dialog-content>
+  <form #form>
+    <mat-form-field class="full-width" appearance="outline">
+        <mat-label>Produto: </mat-label>
+        <input #name="ngModel" matInput type="text" [(ngModel)]="data.produto" [ngModelOptions]="{standalone: true}" required>
+        <mat-error *ngIf="name.invalid">Preencha o campo corretamente</mat-error>
+    </mat-form-field>
+    <br>
+    <mat-form-field class="full-width" appearance="outline">
+        <mat-label>Marca: </mat-label>
+        <input matInput type="text" [(ngModel)]="data.marca" [ngModelOptions]="{standalone: true}">
+    </mat-form-field>
+    <br>
+    <mat-form-field class="full-width" appearance="outline">
+        <mat-label>Preço unitário: </mat-label>
+        <span matPrefix style="float: left;">R$ &nbsp;</span>
+        <input #price="ngModel" matInput type="number" step="0.01" [(ngModel)]="data.preco_unitario" [ngModelOptions]="{standalone: true}" required>
+        <mat-error *ngIf="price.invalid">Preencha o campo corretamente</mat-error>
+    </mat-form-field>
+    <br>
+    <mat-form-field class="full-width" appearance="outline">
+        <mat-label>Quantidade: </mat-label>
+        <span matPrefix style="float: left;">Uni &nbsp;</span>
+        <input matInput #quant="ngModel" type="number" [(ngModel)]="data.quantidade" [ngModelOptions]="{standalone: true}" required>
+        <mat-error *ngIf="quant.invalid">Preencha o campo corretamente</mat-error>
+    </mat-form-field>
+    <br>
+    <mat-form-field class="full-width" appearance="outline">
+        <mat-label>Peso unitário: </mat-label>
+        <span matPrefix style="float: left;">Kg &nbsp;</span>
+        <input matInput #weight="ngModel" type="number" step="0.001" [(ngModel)]="data.peso_unitario" [ngModelOptions]="{standalone: true}" required>
+        <mat-error *ngIf="weight.invalid">Preencha o campo corretamente</mat-error>
+    </mat-form-field>
+    <br>
+    <mat-form-field class="full-width" appearance="outline">
+      <mat-label>Fornecedor: </mat-label>
+      <mat-select [(ngModel)]="data.id_fornecedor" [ngModelOptions]="{standalone: true}">
+        <mat-option value="0">N / A</mat-option>
+        <mat-option *ngFor="let item of listProvider" [value]="item.id_fornecedor">{{item.nome}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+        
+    <mat-error *ngIf="err">
+      {{ err }}
+    </mat-error>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button mat-dialog-close>Cancelar</button>
+  <button *ngIf="form.checkValidity()" mat-button (click)="onSubmit()" color="primary">Enviar <mat-icon>send</mat-icon></button>
+</mat-dialog-actions>

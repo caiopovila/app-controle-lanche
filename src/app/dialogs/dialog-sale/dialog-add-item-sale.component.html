@@ -1,0 +1,35 @@
+<h1>Pedido {{data.id_venda}}</h1>
+<mat-dialog-content>
+    <mat-form-field class="full-width">
+        <mat-chip-list #chipList aria-label="Selecione os itens">
+        <mat-chip
+            *ngFor="let item of itens"
+            [selectable]="selectable"
+            [removable]="removable"
+            (removed)="remove(item.id_item)">
+            {{item.nome}}
+            <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+        </mat-chip>
+        <input
+            placeholder="Add item..."
+            #itemInput
+            [formControl]="itemCtrl"
+            [matAutocomplete]="autoItem"
+            [matChipInputFor]="chipList"
+            [matChipInputSeparatorKeyCodes]="separatorKeysCodes">
+        </mat-chip-list>
+        <mat-autocomplete #autoItem="matAutocomplete" autoActiveFirstOption (optionSelected)="selected($event)">
+        <mat-option *ngFor="let item of itemsList" [value]="item">
+            {{item.nome}}
+
+            <span style="float: right;"> R$ {{item.preco | number: '.2'}}</span>
+        </mat-option>
+        </mat-autocomplete>
+    </mat-form-field>
+    <br>
+    <span *ngIf='total > 0'>total: R$ {{data.preco_total + total | number: '.2'}}</span>
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button mat-button mat-dialog-close>Cancelar</button>
+    <button (click)="onSubmit()" *ngIf="itens.length > 0" mat-button color="primary">Enviar <mat-icon>send</mat-icon></button>
+</mat-dialog-actions>

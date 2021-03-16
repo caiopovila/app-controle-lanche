@@ -1,0 +1,21 @@
+<h1 mat-dialog-title>Endereços de {{data.nome}}</h1>
+<mat-dialog-content>
+
+    <div *ngIf="ends">
+        <mat-card *ngFor='let item of ends; let i = index'>
+           {{i + 1}}) {{item.rua}}, {{item.numero}} - {{item.bairro}} {{item.cidade}} - CEP: {{item.cep}} 
+           <button (click)="delEnd(item.id_endereco)" mat-icon-button color='warn' style="float: inline-end; margin-top: -10px;" matTooltip="Deletar endereço" aria-label="deletar endereço">
+               <mat-icon>close</mat-icon>
+            </button>
+        </mat-card>
+    </div>
+
+  <mat-error *ngIf="err">
+    {{ err }}
+  </mat-error>
+  
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button mat-dialog-close>Fechar</button>
+  <button mat-button (click)="openDialogEnd()">+ Novo endereço</button>
+</mat-dialog-actions>

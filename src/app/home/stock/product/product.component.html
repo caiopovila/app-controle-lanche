@@ -1,0 +1,9 @@
+<h1 class="center m">{{title}}</h1>
+
+<form>
+    <mat-form-field class="full-width m">
+      <mat-label>Pesquisar por produtos</mat-label>
+      <input matInput type="search" placeholder="Ex. Manteiga" [(ngModel)]="q" [ngModelOptions]="{standalone: true}">
+    </mat-form-field>
+</form>
+  <app-list [q]="q"></app-list>

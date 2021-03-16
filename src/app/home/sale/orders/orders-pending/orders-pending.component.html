@@ -1,0 +1,25 @@
+<section class="m">
+<h2>Pedidos pendentes</h2>
+<table matSort>
+    <tr>
+      <th mat-sort-header="id">ID</th>
+      <th mat-sort-header="nome">Cliente</th>
+      <th mat-sort-header="fone">Fone</th>
+      <th mat-sort-header="progresso">Progresso</th>
+      <th mat-sort-header="total">Total (R$)</th>
+      <th mat-sort-header="data">Data</th>
+    </tr>
+
+    <tr *ngFor="let item of listPending" class="pointer" (click)="det(item)">
+      <td>{{item.id_venda}}</td>
+      <td>{{item.nome}}</td>
+      <td>{{item.fone}}</td>
+      <td>{{item.progresso}}</td>
+      <td>{{item.preco_total + item.frete | number: '.2'}}</td>
+      <td>{{item.data_criado | date:'short'}}</td>
+    </tr>
+</table>
+
+<mat-paginator [length]="length" [pageSizeOptions]="pageSizeOptions"
+(page)="pageEvent = $event; getList(pageEvent.pageSize, pageEvent.pageSize * pageEvent.pageIndex);" showFirstLastButtons></mat-paginator>
+</section>

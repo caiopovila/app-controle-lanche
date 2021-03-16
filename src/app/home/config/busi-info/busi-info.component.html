@@ -1,0 +1,26 @@
+<mat-card *ngIf="info">
+    <mat-card-title>
+        Dados
+    </mat-card-title>
+    
+    <mat-card-content>
+        <mat-list role="list" >
+            <mat-list-item role="listitem">Nome: {{info.empresa.nome}}</mat-list-item>
+            <mat-list-item role="listitem">email: {{info.empresa.email}}</mat-list-item>
+            <mat-list-item role="listitem">Fone: {{info.empresa.fone}}</mat-list-item>
+        </mat-list>
+        <mat-list role="list" *ngFor="let adr of info.enderecos">
+            <mat-list-item role="listitem">Rua: {{adr.rua}}</mat-list-item>
+            <mat-list-item role="listitem">Número: {{adr.numero}}</mat-list-item>
+            <mat-list-item role="listitem">Bairro: {{adr.bairro}}</mat-list-item>
+            <mat-list-item role="listitem">Cidade: {{adr.cidade}}</mat-list-item>
+            <mat-list-item role="listitem">CEP: {{adr.cep}}</mat-list-item>
+        </mat-list>
+    </mat-card-content>
+
+    <mat-card-actions>
+        <button mat-button *ngIf="info.enderecos.length <= 0" (click)="addAdress()">Add endereço</button>
+        <button mat-button *ngIf="info.enderecos.length > 0" (click)="upAdress()">Atualizar endereço</button>
+        <button mat-button *ngIf="info.empresa" (click)="upDado()">Atualizar dados</button>
+    </mat-card-actions>
+</mat-card>

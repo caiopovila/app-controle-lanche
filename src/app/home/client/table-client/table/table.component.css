@@ -1,0 +1,8 @@
+table, .mat-body {
+    width: 90%;
+    margin-left: 5%;
+}
+
+.mat-column-select {
+    overflow: initial;
+}

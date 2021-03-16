@@ -1,0 +1,29 @@
+<h1 mat-dialog-title>Atualizar {{data.nome}}</h1>
+<mat-dialog-content>
+  <form #form>
+    <mat-form-field class="full-width" appearance="outline">
+        <mat-label>Nome: </mat-label>
+        <input type="text" [(ngModel)]="data.nome" [ngModelOptions]="{standalone: true}" matInput required>
+    </mat-form-field>
+    <br>
+    <mat-form-field class="full-width" appearance="outline">
+        <mat-label>Valor: </mat-label>
+        <span matPrefix style="float: left;">R$ &nbsp;</span>
+        <input matInput type="number" step="0.01" [(ngModel)]="data.valor" [ngModelOptions]="{standalone: true}" required>
+    </mat-form-field>
+    <br>
+    <mat-form-field class="full-width" appearance="outline">
+        <mat-label>Vencimento: </mat-label>
+        <span matPrefix style="float: left;">Dia &nbsp;</span>
+        <input matInput type="number" [(ngModel)]="data.dia_vencimento" min="1" max="31" [ngModelOptions]="{standalone: true}">
+    </mat-form-field>
+
+  <mat-error *ngIf="err">
+    {{ err }}
+  </mat-error>
+</form>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button mat-dialog-close>Cancelar</button>
+  <button (click)="onSubmit()" *ngIf="form.checkValidity()" mat-button color="primary">Enviar <mat-icon>send</mat-icon></button>
+</mat-dialog-actions>

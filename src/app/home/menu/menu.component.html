@@ -1,0 +1,33 @@
+<mat-toolbar color="primary">
+    <mat-toolbar-row>
+        
+        <span routerLink="/inicio" class="pointer"> {{ title }} </span>
+
+        <span class="bet-spacer"></span>
+
+        <button mat-icon-button aria-label="Botão menu" color="basic" [matMenuTriggerFor]="menu">
+            <mat-icon>menu</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu" color="basic">
+            <button mat-menu-item [matMenuTriggerFor]="vendas"> Vendas </button>
+            <button mat-menu-item routerLink="/inicio/clientes"> Clientes </button>
+            <button mat-menu-item routerLink="/inicio/itens"> Itens </button>
+            <button mat-menu-item [matMenuTriggerFor]="estoque"> Estoque </button>
+            <button mat-menu-item [matMenuTriggerFor]="financeiro"> Financeiro </button>
+            <button mat-menu-item routerLink="/inicio/configuracao"> Configurações </button>
+            <button mat-menu-item (click)="sair()"> Sair </button>
+        </mat-menu>
+        <mat-menu #vendas="matMenu">
+            <button mat-menu-item routerLink="/inicio/vendas">Registros</button>
+            <button mat-menu-item routerLink="/inicio/pedidos">Pedidos</button>
+        </mat-menu>
+        <mat-menu #estoque="matMenu">
+            <button mat-menu-item routerLink="/inicio/produtos">Produtos</button>
+            <button mat-menu-item routerLink="/inicio/fornecedores">Fornecedores</button>
+        </mat-menu>
+        <mat-menu #financeiro="matMenu">
+            <button mat-menu-item routerLink="/inicio/custos">Custos fixos</button>
+            <button mat-menu-item routerLink="/inicio/funcionarios">Funcionários</button>
+        </mat-menu>
+    </mat-toolbar-row>
+</mat-toolbar>

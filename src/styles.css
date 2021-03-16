@@ -1,0 +1,32 @@
+/* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.padding-5 { padding: 5%; }
+
+.pointer {
+    cursor: pointer;
+}
+
+.bet-spacer {
+    flex: 1 1 auto;
+}
+
+.full-width {
+    width: 90%;
+}
+
+.m {
+    margin: 5%;
+}
+
+.center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+footer {
+    padding-top: 5%;
+}

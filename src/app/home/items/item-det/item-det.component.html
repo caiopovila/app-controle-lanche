@@ -1,0 +1,90 @@
+<mat-grid-list *ngIf="item" [cols]="breakpoint" rowHeight="500px" (window:resize)="onResize($event)">
+    <mat-grid-tile [colspan]="breakpoint" rowspan="1">
+        <h1 class="mat-display-1">
+            <mat-icon>label</mat-icon> &nbsp; {{item.item}} &nbsp;&nbsp;&nbsp;&nbsp;
+            <button mat-raised-button matTooltip="Deletar item" style="float: right;" aria-label="deletar item"
+                (click)="delItem()" color="warn">
+                <mat-icon>delete</mat-icon>
+            </button>
+        </h1>
+    </mat-grid-tile>
+    <mat-grid-tile [colspan]="breakpoint" rowspan="1">
+        <mat-grid-tile-header>
+            <h1 style="margin-top: 8px;">
+                <mat-icon>assignment</mat-icon>
+            </h1>
+            &nbsp;<h1>Detalhes</h1>
+        </mat-grid-tile-header>
+        <mat-list>
+            <mat-list-item role="listitem">Custo de produção: R$ {{item.custo_unitario || 0 | number: '.2'}}
+            </mat-list-item>
+            <mat-list-item role="listitem">Contribuição da venda: R$ {{item.M_C_U || 0 | number: '.2'}}</mat-list-item>
+            <mat-list-item role="listitem">Porcentagem contribuição: % {{item.M_C_U_P || 0}}</mat-list-item>
+        </mat-list>
+    </mat-grid-tile>
+    <mat-grid-tile rowspan="1" colspan="1">
+        <mat-card [class.mat-elevation-z2]="!isActive" [class.mat-elevation-z8]="isActive" (mouseover)="isActive = true"
+            (mouseout)="isActive = false">
+            <mat-card-title style="padding: 5%;"><mat-icon>mode_edit</mat-icon> Editar</mat-card-title>
+            <form (ngSubmit)="sendInfo()">
+                <mat-form-field appearance="outline">
+                    <mat-label>Nome: </mat-label>
+                    <input type="text" matInput [(ngModel)]="nome" [ngModelOptions]="{standalone: true}" required>
+                </mat-form-field>
+                <br>
+                <mat-form-field appearance="outline">
+                    <mat-label>Descrição: </mat-label>
+                    <textarea matInput [(ngModel)]="desc" [ngModelOptions]="{standalone: true}"></textarea>
+                </mat-form-field>
+                <br>
+                <mat-form-field appearance="outline" style="width: 85%;">
+                    <mat-label>Preco: </mat-label>
+                    <span matPrefix style="float: left;">R$ &nbsp;&nbsp;&nbsp;&nbsp;</span>
+                    <input type="number" [(ngModel)]="preco" step="0.01" [ngModelOptions]="{standalone: true}" matInput required>
+                </mat-form-field>
+                <br>
+
+                <mat-error *ngIf="erro">
+                    {{ erro }}
+                </mat-error>
+
+                <button mat-button color="primary">Atualizar <mat-icon>send</mat-icon></button>
+            </form>
+        </mat-card>
+    </mat-grid-tile>
+    <mat-grid-tile colspan="1" rowspan="1" *ngIf="item.vendas">
+        <mat-grid-tile-header>
+            <h1 style="margin-top: 8px;">
+                <mat-icon>event</mat-icon>
+            </h1>&nbsp;
+            <h1>Balanço dos últimos 30 dias</h1>
+        </mat-grid-tile-header>
+        <mat-list style="margin-top: 10%;" role="list">
+            <mat-list-item role="listitem">Contribuição: R$ {{item.M_C_T_MES | number: '.2'}}</mat-list-item>
+            <mat-list-item role="listitem">Custos: R$ {{item.custo_total_mes | number: '.2'}}</mat-list-item>
+            <mat-list-item role="listitem">Receita: R$ {{item.receita_mes | number: '.2'}}</mat-list-item>
+            <mat-list-item role="listitem">Porcentagem receita: % {{item.receita_mes_p}}</mat-list-item>
+            <mat-list-item role="listitem">Vendas: {{item.vendas}}</mat-list-item>
+            <mat-list-item role="listitem">Ponto de equilibrio: {{item.pe_mes}}</mat-list-item>
+            <mat-list-item role="listitem">Margem de segurança: {{item.ms_mes}}</mat-list-item>
+        </mat-list>
+    </mat-grid-tile>
+    <mat-grid-tile rowspan="1" [colspan]="item.vendas ? breakpoint : 1">
+        <mat-grid-tile-header>
+            <h1 style="margin-top: 8px;">
+                <mat-icon>list</mat-icon>
+            </h1>&nbsp;&nbsp;<h1>Produtos:</h1>
+            <span class="bet-spacer">
+                <button mat-button style="float: right;" (click)="openDialogDet()">+&nbsp;Add produtos&nbsp;</button>
+            </span>
+            <button [disabled]='list_prod.length <= 0' mat-mini-fab (click)="delProds()" matTooltip="Deletar produto(s)"
+                aria-label="deletar produto" color="warn">
+                <mat-icon>delete</mat-icon>
+            </button>
+        </mat-grid-tile-header>
+        <mat-selection-list [(ngModel)]="list_prod" *ngIf="item.id_produto">
+            <mat-list-option *ngFor="let ite of items" [value]="ite.id"> {{ite.produto}} -> quantidade : Kg
+                {{ite.peso_quantidade}} || custo: R$ {{ite.custo_produto | number: '.2'}}</mat-list-option>
+        </mat-selection-list>
+    </mat-grid-tile>
+</mat-grid-list>

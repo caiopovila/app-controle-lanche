@@ -1,0 +1,9 @@
+<h1 class="center m">{{title}}</h1>
+
+<form>
+    <mat-form-field class="full-width m">
+      <mat-label>Pesquisar por clientes</mat-label>
+      <input matInput type="search" placeholder="Ex. Luiz" [(ngModel)]="q" [ngModelOptions]="{standalone: true}">
+    </mat-form-field>
+</form>
+<app-table-client-table [q]="q"></app-table-client-table>

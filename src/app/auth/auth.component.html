@@ -1,0 +1,25 @@
+<div class="padding-5" [class.mat-elevation-z1]="!isActive" [class.mat-elevation-z8]="isActive"
+  (mouseover)="isActive = true" (mouseout)="isActive = false">
+  <h1 class="mat-h3">{{ title }}</h1>
+
+  <form (ngSubmit)="auth()">
+    <mat-form-field class="full-width" appearance="outline">
+      <mat-label>Email</mat-label>
+      <input matInput type='email' [(ngModel)]="email" [ngModelOptions]="{standalone: true}" placeholder="exemplo@mail"
+        required>
+    </mat-form-field>
+
+    <mat-form-field class="full-width" appearance="outline">
+      <mat-label>Senha</mat-label>
+      <input matInput type="password" [(ngModel)]="pass" [ngModelOptions]="{standalone: true}" placeholder="******"
+        required>
+    </mat-form-field>
+
+    <mat-error *ngIf="erro">
+      {{ erro }}
+    </mat-error>
+    <br>
+    <button mat-raised-button type="submit" color="primary">Entrar</button>
+    <a mat-button routerLink="cadastro">Cadastre-se</a>
+  </form>
+</div>

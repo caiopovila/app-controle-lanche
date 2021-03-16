@@ -1,0 +1,43 @@
+<h1 mat-dialog-title>Novo item</h1>
+<mat-dialog-content>
+  <form #form>
+    <mat-form-field appearance="outline">
+        <mat-label>Nome: </mat-label>
+        <input type="text" [(ngModel)]="nome" [ngModelOptions]="{standalone: true}" matInput required>
+    </mat-form-field>
+    <br>
+    <mat-form-field appearance="outline">
+        <mat-label>Descrição: </mat-label>
+        <textarea matInput [(ngModel)]="desc" [ngModelOptions]="{standalone: true}"></textarea>
+    </mat-form-field>
+    <br>
+    <mat-form-field style="width: 85%;" appearance="outline">
+        <mat-label>Preço: </mat-label>
+        <span matPrefix style="float: left;">R$ &nbsp;</span>
+        <input matInput type="number" step="0.01" [(ngModel)]="preco" [ngModelOptions]="{standalone: true}" required>
+    </mat-form-field>
+    <br>
+    <mat-form-field appearance="outline">
+      <mat-label>Produtos</mat-label>
+      <mat-select #sel multiple [(ngModel)]="produtos" [ngModelOptions]="{standalone: true}">
+        <mat-option *ngFor="let item of listProd" [value]="item.id_produto">{{item.produto}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <br>
+    <div *ngFor='let item of sel._selectionModel.selected; let i = index'>
+      <mat-form-field *ngIf="item" appearance="outline">
+        <mat-label>Quantidade de {{item._mostRecentViewValue}}</mat-label>
+        <span matPrefix style="float: left;">Kg &nbsp;</span>
+        <input type="number" matInput step="0.001" [(ngModel)]="quant[i]" [ngModelOptions]="{standalone: true}" required>
+      </mat-form-field>
+    </div>
+      
+  <mat-error *ngIf="err">
+    {{ err }}
+  </mat-error>
+</form>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button mat-dialog-close>Cancelar</button>
+  <button (click)="onSubmit()" mat-button color="primary">Enviar <mat-icon>send</mat-icon></button>
+</mat-dialog-actions>

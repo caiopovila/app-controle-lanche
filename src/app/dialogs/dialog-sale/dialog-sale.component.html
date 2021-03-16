@@ -1,0 +1,43 @@
+<h1>Pedido {{data.id_venda}}</h1>
+<section>
+    <button style="margin: 10px;" mat-raised-button color="warn" (click)="progress = 1; upProgress();" *ngIf="progress == 2 || progress == 3">Cancelar</button>
+    <button style="margin: 10px;" mat-raised-button color="accent" (click)="progress = 2; upProgress();" *ngIf="progress == 3">Produção</button>
+    <button style="margin: 10px;" mat-raised-button color="accent" (click)="progress = 3; upProgress();" *ngIf="progress == 2">Despachar</button>
+    <button style="margin: 10px;" mat-raised-button color="primary" (click)="progress = 4; upProgress();" *ngIf="progress == 2 || progress == 3">Entregue</button>
+</section>
+<mat-card *ngIf='adress'>
+    <mat-card-header>
+        <mat-card-title>
+            Endereço
+        </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+        {{adress.rua}}, {{adress.numero}} - {{adress.bairro}} {{adress.cidade}} - CEP: {{adress.cep}} 
+    </mat-card-content>
+    <mat-card-action>
+        FRETE: {{data.frete | number: '.2'}}
+    </mat-card-action>
+</mat-card>
+<br>
+<mat-card *ngIf='items'>
+    <mat-card-header>
+        <mat-card-title>
+            Itens
+        </mat-card-title>
+    </mat-card-header>
+    <button *ngIf="progress == 2" class="full-width" (click)="addItem()" mat-button matTooltip="Adicionar item" aria-label="adicionar item">
+        + add item
+     </button>
+    <mat-card-content>
+        <mat-list role="list">
+            <mat-list-item  *ngFor='let it of items' role="listitem">
+                <article mat-line>{{it.nome}}</article>
+
+                <span matBadge="R$" matBadgeOverlap="false" matBadgeColor="warn" matBadgePosition="before">{{it.preco | number: '.2'}}</span>
+                <button *ngIf="progress == 2" (click)="delItem(it.id)" mat-icon-button color='warn' style="float: inline-end; margin-top: -10px;" matTooltip="Deletar item" aria-label="deletar item">
+                    <mat-icon>close</mat-icon>
+                 </button>
+            </mat-list-item>
+        </mat-list>          
+    </mat-card-content>
+</mat-card>

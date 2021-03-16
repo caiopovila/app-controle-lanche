@@ -1,0 +1,23 @@
+<mat-list role="list">
+    <div mat-subheader>
+        Custos fixos
+    </div>
+    <mat-list-item>
+        <button mat-button (click)="newCost()" class="full-width m">
+            Novo custo
+        </button>
+    </mat-list-item>
+    <mat-list-item role="listitem" *ngFor='let item of listcosts'>
+        <article mat-line>{{item.nome | uppercase}}</article>
+        <article mat-line> {{item.valor | number: '.2'}} </article>
+        <article mat-line *ngIf="item.dia_vencimento"> dia vencimento: {{item.dia_vencimento}} </article>
+
+        <button mat-icon-button (click)="upCost(item)" matTooltip="Editar custo" aria-label="Editar custo" color="primary">
+            <mat-icon mat-list-icon>mode_edit</mat-icon>
+        </button>
+        <button mat-icon-button (click)="delCost(item)" matTooltip="Deletar custo" aria-label="Deletar custo" color="warn">
+            <mat-icon>close</mat-icon>
+        </button>
+        <mat-divider></mat-divider>
+    </mat-list-item>
+</mat-list>

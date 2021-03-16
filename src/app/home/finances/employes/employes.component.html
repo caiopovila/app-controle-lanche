@@ -1,0 +1,24 @@
+<mat-list role="list">
+    <div mat-subheader>
+        Funcionários
+    </div>
+    <mat-list-item>
+        <button mat-button (click)="newFunc()" class="full-width m">
+            Novo funcionários
+        </button>
+    </mat-list-item>
+    <mat-list-item role="listitem" *ngFor='let item of listemp'>
+        <article mat-line>{{item.nome | uppercase}}</article>
+        <article mat-line> {{item.salario | number: '.2'}} </article>
+        <article mat-line *ngIf="item.dia_pagamento"> dia pagamento: {{item.dia_pagamento}} </article>
+        <article mat-line> {{item.funcao}} </article>
+
+        <button mat-icon-button (click)="upFunc(item)" matTooltip="Editar funcionário" aria-label="Editar funcionário" color="primary">
+            <mat-icon mat-list-icon>mode_edit</mat-icon>
+        </button>
+        <button mat-icon-button (click)="delFunc(item)" matTooltip="Deletar funcionário" aria-label="Deletar funcionário" color="warn">
+            <mat-icon>close</mat-icon>
+        </button>
+        <mat-divider></mat-divider>
+    </mat-list-item>
+</mat-list>

@@ -1,0 +1,11 @@
+<section class="m">
+  <h1 class="center">{{title}}</h1>
+
+  <form>
+      <mat-form-field class="full-width m">
+        <mat-label>Pesquisar por frete</mat-label>
+        <input matInput type="search" placeholder="Ex. São Paulo" [(ngModel)]="q" [ngModelOptions]="{standalone: true}">
+      </mat-form-field>
+  </form>
+  <app-freight-list [q]="q"></app-freight-list>
+</section>

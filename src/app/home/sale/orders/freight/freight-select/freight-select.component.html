@@ -1,0 +1,11 @@
+<div *ngIf='listFre'>
+    <mat-form-field appearance="fill">
+        <mat-label>Selecione o frete</mat-label>
+        <mat-select [(value)]="selectedFreight" required>
+          <mat-option [value]='0'>N/A</mat-option>
+          <mat-option *ngFor='let item of listFre' [value]="item.preco">{{item.bairro}}, {{item.cidade}} <span style="float: right;">R$ {{item.preco | number: '.2'}}</span></mat-option>
+        </mat-select>
+      </mat-form-field>
+
+    <button mat-button style="margin-left: 5%;" (click)="openDialogFre()">+ Novo frete</button>
+</div>

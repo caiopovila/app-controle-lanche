@@ -1,0 +1,76 @@
+<section class="m">
+    <h2>Novo pedido</h2>
+
+    <form #newOrder>
+        <mat-form-field appearance="outline">
+            <mat-label>Cliente: </mat-label>
+            <span matPrefix *ngIf="adr" style="float: left;">ID: &nbsp;&nbsp;</span>
+            <input matInput type="text" [formControl]="client" required [matAutocomplete]="auto">
+            <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" (optionSelected)="getAdress()">
+                <mat-option *ngFor="let item of cli_list" [value]="item.id_cliente">
+                    id: {{item.id_cliente}} - nome: {{item.nome}} 
+                </mat-option>
+            </mat-autocomplete> 
+        </mat-form-field>
+        <button mat-button style="margin-left: 5%;" (click)="openDialog()">+ Novo cliente</button>
+
+    <mat-card *ngIf="cl" class="full-width">
+        <mat-card-title>Cliente {{cl.nome}}</mat-card-title>
+        <mat-card-content>
+            TEL: {{cl.fone}} <br>
+            EMAIL: {{cl.email}}
+        </mat-card-content>
+    </mat-card>
+
+    <mat-card *ngIf="adr" class="full-width m">
+        <mat-card-title>Endereços</mat-card-title>
+        <mat-card-content>
+            <mat-radio-group aria-label="Selecione um endereço" required>
+                <mat-radio-button *ngFor='let item of adr' [value]="item.id_endereco" (change)='getEnd(item)'>
+                    {{item.rua}}, {{item.numero}} - {{item.bairro}} cidade: {{item.cidade}} - CEP: {{item.cep}} 
+                </mat-radio-button>
+            </mat-radio-group>
+        </mat-card-content>
+        <mat-card-actions><button mat-button (click)="openDialogEnd()">+ Novo endereço</button></mat-card-actions>
+    </mat-card>
+
+
+    <app-freight-select #freight [adressSelect]="adressSelect"></app-freight-select>
+
+    <mat-form-field class="full-width">
+        <mat-chip-list #chipList aria-label="Selecione os itens">
+        <mat-chip
+            *ngFor="let item of itens"
+            [selectable]="selectable"
+            [removable]="removable"
+            (removed)="remove(item.id_item)">
+            {{item.nome}}
+            <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+        </mat-chip>
+        <input
+            placeholder="Add item..."
+            #itemInput
+            [formControl]="itemCtrl"
+            [matAutocomplete]="autoItem"
+            [matChipInputFor]="chipList"
+            [matChipInputSeparatorKeyCodes]="separatorKeysCodes">
+        </mat-chip-list>
+        <mat-autocomplete #autoItem="matAutocomplete" autoActiveFirstOption (optionSelected)="selected($event)">
+        <mat-option *ngFor="let item of itemsList" [value]="item">
+            {{item.nome}}
+
+            <span style="float: right;"> R$ {{item.preco | number: '.2'}}</span>
+        </mat-option>
+        </mat-autocomplete>
+    </mat-form-field>
+
+    <mat-error *ngIf="err">
+        <h1>{{ err }}</h1>
+    </mat-error>
+    </form>
+
+    <h1 *ngIf="total > 0" style="float: right;"> TOTAL: R$ {{total + freight.selectedFreight || 0 | number: '.2'}}</h1>
+
+    <button mat-button class="full-width" *ngIf="total > 0 && adressSelect && newOrder.checkValidity()" (click)="sendOrder(freight.selectedFreight)">Finalizar pedido</button>
+
+</section>

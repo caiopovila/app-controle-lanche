@@ -1,0 +1,26 @@
+<h1 mat-dialog-title>Novo cliente</h1>
+<mat-dialog-content>
+    <mat-form-field class="full-width" appearance="outline">
+        <mat-label>Nome: </mat-label>
+        <input matInput type="text" [(ngModel)]="nome" required>
+    </mat-form-field>
+    <br>
+    <mat-form-field class="full-width" appearance="outline">
+        <mat-label>Fone: </mat-label>
+        <input matInput type="tel" [(ngModel)]="fone" required>
+    </mat-form-field>
+    <br>
+    <mat-form-field class="full-width" appearance="outline">
+        <mat-label>Email: </mat-label>
+        <input matInput type="email" [(ngModel)]="email">
+    </mat-form-field>
+    
+  <mat-error *ngIf="err">
+    {{ err }}
+  </mat-error>
+  
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button mat-dialog-close>Cancelar</button>
+  <button mat-button color="primary" (click)="onSubmit()">Enviar <mat-icon>send</mat-icon></button>
+</mat-dialog-actions>

@@ -1,0 +1,26 @@
+<h1 mat-dialog-title>Atualizar {{data.nome}}</h1>
+<mat-dialog-content>
+    <mat-form-field class="full-width" appearance="outline">
+        <mat-label>Nome: </mat-label>
+        <input matInput type="text" [(ngModel)]="data.nome" required>
+    </mat-form-field>
+    <br>
+    <mat-form-field class="full-width" appearance="outline">
+        <mat-label>Fone: </mat-label>
+        <input matInput type="tel" [(ngModel)]="data.fone">
+    </mat-form-field>
+    <br>
+    <mat-form-field class="full-width" appearance="outline">
+        <mat-label>Email: </mat-label>
+        <input matInput type="email" [(ngModel)]="data.email">
+    </mat-form-field>
+    
+  <mat-error *ngIf="err">
+    {{ err }}
+  </mat-error>
+
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button mat-dialog-close>Cancelar</button>
+  <button (click)="onSubmit()" mat-button color="primary">Enviar <mat-icon>send</mat-icon></button>
+</mat-dialog-actions>
